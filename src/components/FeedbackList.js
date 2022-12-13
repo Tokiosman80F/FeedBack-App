@@ -1,12 +1,12 @@
-import FedddbackItem from "./FeedbackItem";
-function FeedbackList({ feedback }) {
+import FeedbackItem from "./FeedbackItem";
+function FeedbackList({ feedback, handleDelete }) {
   if (!feedback || feedback.length === 0) {
     return <p>no feedback</p>;
   }
   return (
     <div className="feedback-list">
       {feedback.map((item) => (
-        <FedddbackItem key={item.id} item={item} />
+        <FeedbackItem key={item.id} item={item} handleDelete={handleDelete} />
       ))}
     </div>
   );
