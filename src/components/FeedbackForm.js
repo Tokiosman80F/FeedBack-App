@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "../shared/Button";
 import Card from "../shared/Card";
 import RatingSelected from "./RatingSelected";
+import { useContext } from "react";
+import FeedbackContext from "../context/FeedbackContext";
 
-function FeedbackForm({ handleAdd }) {
+function FeedbackForm() {
+  // ========== USE Context ==============
+  const { addFeedback, feedbackEdit, updateFeedback } =
+    useContext(FeedbackContext);
   // ========== USE STATE ==============
 
   const [text, setText] = useState("");
@@ -11,6 +16,15 @@ function FeedbackForm({ handleAdd }) {
   const [message, setMessage] = useState("");
   const [rating, setRating] = useState(10);
 
+  // ========== USE EFFECT ==============
+  useEffect(() => {
+    if (feedbackEdit.edit === true) {
+      setBtnDisabled(false);
+      setText(feedbackEdit.item.text);
+      setRating(feedbackEdit.item.rating);
+    }
+    // console.log("hello");
+  }, [feedbackEdit]);
   // ==========HANDLE TEXT CHANGE==============
   const handleTextChange = (e) => {
     if (text === "") {
@@ -26,7 +40,7 @@ function FeedbackForm({ handleAdd }) {
     setText(e.target.value);
   };
 
-  // ==========HANDLE SUBMIT==============
+  // ========== FORM HANDLE SUBMIT ==============
   const handleSubmit = (e) => {
     e.preventDefault();
     if (text.trim().length > 10) {
@@ -34,7 +48,11 @@ function FeedbackForm({ handleAdd }) {
         text,
         rating,
       };
-      handleAdd(newFeedback);
+      if (feedbackEdit.edit === true) {
+        updateFeedback(feedbackEdit.item.id, newFeedback);
+      } else {
+        addFeedback(newFeedback);
+      }
       setText("");
     }
   };
