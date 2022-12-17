@@ -1,20 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Button from "../shared/Button";
 import Card from "../shared/Card";
 import RatingSelected from "./RatingSelected";
-import { useContext } from "react";
 import FeedbackContext from "../context/FeedbackContext";
 
 function FeedbackForm() {
-  // ========== USE Context ==============
-  const { addFeedback, feedbackEdit, updateFeedback } =
-    useContext(FeedbackContext);
   // ========== USE STATE ==============
 
   const [text, setText] = useState("");
+  const [rating, setRating] = useState(10);
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState("");
-  const [rating, setRating] = useState(10);
+  // ========== USE Context ==============
+  const { addFeedback, feedbackEdit, updateFeedback } =
+    useContext(FeedbackContext);
 
   // ========== USE EFFECT ==============
   useEffect(() => {

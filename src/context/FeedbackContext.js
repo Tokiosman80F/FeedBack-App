@@ -1,5 +1,5 @@
-import { createContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { createContext, useState } from "react";
 const FeedbackContext = createContext();
 
 export const FeedbackProvider = ({ children }) => {
@@ -23,8 +23,9 @@ export const FeedbackProvider = ({ children }) => {
   // =================EDIT FEEDBACK=========================
   const [feedbackEdit, setFeedbackEdit] = useState({
     item: {},
-    edit: true,
+    edit: false,
   });
+  // set item to be updated
   const editFeedback = (item) => {
     setFeedbackEdit({
       item,
